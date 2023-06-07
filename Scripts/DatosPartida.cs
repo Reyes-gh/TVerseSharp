@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class DatosPartida : MonoBehaviour, DataPersistence
 {
-    float timeMillis = -4;
+    float timeMillis;
     int currentLevel;
     GameObject textoTimer;
     private FileHandler fileHandler;
