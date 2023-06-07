@@ -9,7 +9,6 @@ public class DatosManager : MonoBehaviour
 
     [Header("File Storage Config")]
     [SerializeField] private string fileName;
-
     private DatosJuego datosJuego;
     private List<DataPersistence> dataPersistences;
     private FileHandler fileHandler;
