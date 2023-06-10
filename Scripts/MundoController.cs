@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class MundoController : MonoBehaviour
 {
+    [Header("GameObjects para manipular y Arrays")]
     GameObject player;
     GameObject squareReset;
     GameObject fogLluvia;
@@ -14,15 +15,18 @@ public class MundoController : MonoBehaviour
     GameObject[] particulasArray;
     GameObject[] suelos;
     public DatosManager datosManager;
+    [Header("Sprites")]
     public Sprite pulsarA;
     public Sprite pulsarW;
     public Sprite pulsarD;
     public Sprite pulsarS;
     public Sprite pausaSprite;
     public Sprite playSprite;
+    [Header("Variables para control")]
     public string layerActual;
     public bool isPaused;
     bool startReset;
+    bool resetLevel;
     float cooldown;
     float timer;
     int d0;
@@ -30,7 +34,6 @@ public class MundoController : MonoBehaviour
     int d2;
     int d3;
     float fogTimer;
-    bool resetLevel;
 
     [System.Obsolete]
     void Start()
