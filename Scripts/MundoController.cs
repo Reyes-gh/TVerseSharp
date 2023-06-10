@@ -5,32 +5,32 @@ using UnityEngine.UI;
 
 public class MundoController : MonoBehaviour
 {
-    GameObject[] suelos;
     GameObject player;
-    int d0;
-    int d1;
-    int d2;
-    int d3;
-    public string layerActual;
+    GameObject squareReset;
+    GameObject fogLluvia;
+    GameObject botonCambio;
+    GameObject botonPausa;
+    GameObject[] botonesPause;
+    GameObject[] particulasArray;
+    GameObject[] suelos;
+    public DatosManager datosManager;
     public Sprite pulsarA;
     public Sprite pulsarW;
     public Sprite pulsarD;
     public Sprite pulsarS;
     public Sprite pausaSprite;
     public Sprite playSprite;
-    GameObject botonCambio;
-    GameObject botonPausa;
-    GameObject[] botonesPause;
-    GameObject[] particulasArray;
-    float cooldown;
-    float timer;
+    public string layerActual;
     public bool isPaused;
     bool startReset;
-    GameObject squareReset;
-    GameObject fogLluvia;
+    float cooldown;
+    float timer;
+    int d0;
+    int d1;
+    int d2;
+    int d3;
     float fogTimer;
     bool resetLevel;
-    public DatosManager datosManager;
 
     [System.Obsolete]
     void Start()
@@ -79,6 +79,10 @@ public class MundoController : MonoBehaviour
         toggleDimension(d0, colorD0);
 
     }
+    #region pollómetro
+
+
+    #endregion
 
     [System.Obsolete]
     void Update()
@@ -167,17 +171,10 @@ public class MundoController : MonoBehaviour
         if (!isPaused)
         {
 
-            if (cooldown <= 0)
-            {
-                cooldown = 0;
-            }
-            else
-            {
-                cooldown -= Time.deltaTime;
-            }
+            cooldown -= Time.deltaTime;
 
             //Control del cambio de capa manejado con cooldown
-            if (cooldown == 0)
+            if (cooldown < 0)
             {
                 if (Input.GetKeyDown(KeyCode.S))
                 {

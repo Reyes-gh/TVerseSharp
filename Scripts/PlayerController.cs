@@ -255,7 +255,7 @@ public class PlayerController : MonoBehaviour
         rb2D.velocity = velocity;
 
         //Frenado por deceleración
-
+    /*
         if (!(Input.GetKey("left") || (Input.GetKey("right"))))
         {
 
@@ -269,13 +269,13 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-
+    */
         //Frenado en seco
-        /*
-            if (!(Input.GetKey("left") || (Input.GetKey("right")))) {
+        
+            if ((Input.GetKeyUp("left") || (Input.GetKeyUp("right")))) {
                     rb2D.velocity = new Vector2(0, rb2D.velocity.y);
             }
-        */
+        
 
         //Wall clinging
 

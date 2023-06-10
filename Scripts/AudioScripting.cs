@@ -2,15 +2,21 @@ using UnityEngine;
 
 public class AudioScripting : MonoBehaviour
 {
+    [Header("Control de audio respecto al mundo")]
     AudioSource audioFondo;
     public MundoController mc;
     public IntroScript ic;
+
+    #region Control de la música con respecto a la intro y la pausa.
     void Start()
     {
         audioFondo = GameObject.FindGameObjectWithTag("fondoM").GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
+    /*
+    Esta clase controla que la música se reproduzca gradualmente una vez ha terminado la intro.
+    También se encarga de pausar la música cuando se pausa la partida.
+    */
     void Update()
     {
 
@@ -29,4 +35,6 @@ public class AudioScripting : MonoBehaviour
             audioFondo.UnPause();
         }
     }
+
+    #endregion
 }
