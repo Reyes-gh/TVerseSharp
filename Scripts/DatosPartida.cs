@@ -59,7 +59,7 @@ public class DatosPartida : MonoBehaviour, DataPersistence
     //En cada frame se actualiza el tiempo actual de la partida en la UI del juego.
     void Update()   
     {
-        if (introScript!=null && introScript.isAnimacionOver) {
+        if (introScript!=null && introScript.isAnimacionOver && SceneManager.GetActiveScene().buildIndex != 1) {
              timeMillis += Time.deltaTime;
         }
 

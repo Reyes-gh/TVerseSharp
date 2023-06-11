@@ -63,15 +63,10 @@ public class PlayerController : MonoBehaviour
                     rb2D.AddForce(new Vector2(-370000f * Time.deltaTime, 0));
                     sprite.flipX = true;
                 }
-                else
-                {
-
-                    if (Input.GetKey("right"))
-                    {
-                        rb2D.AddForce(new Vector2(370000f * Time.deltaTime, 0));
-                        sprite.flipX = false;
-                    }
-
+                else if  (Input.GetKey("right"))
+                {  
+                    rb2D.AddForce(new Vector2(370000f * Time.deltaTime, 0));
+                    sprite.flipX = false;
                 }
 
                 if (Input.GetKeyDown("up"))
@@ -272,10 +267,10 @@ public class PlayerController : MonoBehaviour
     */
         //Frenado en seco
         
-            if ((Input.GetKeyUp("left") || (Input.GetKeyUp("right")))) {
-                    rb2D.velocity = new Vector2(0, rb2D.velocity.y);
-            }
-        
+        if ((Input.GetKeyUp("left") || (Input.GetKeyUp("right")))) {
+                
+                rb2D.velocity = new Vector2(0, rb2D.velocity.y);
+        }
 
         //Wall clinging
 
