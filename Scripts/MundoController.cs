@@ -39,9 +39,13 @@ public class MundoController : MonoBehaviour
     void Start()
     {
 
+        #region Variables de control
         cooldown = 0;
         isPaused = false;
         fogTimer = 1;
+        #endregion
+
+        #region Imágenes UI / Fondo / Animaciones
 
         fogLluvia = GameObject.FindGameObjectWithTag("fog");
         particulasArray = GameObject.FindGameObjectsWithTag("particulas");
@@ -49,9 +53,16 @@ public class MundoController : MonoBehaviour
         botonCambio = GameObject.FindGameObjectWithTag("btnCambio");
         botonPausa = GameObject.FindGameObjectWithTag("PausaJuego");
         botonesPause = GameObject.FindGameObjectsWithTag("botonesPause");
+        GameObject fondoM = GameObject.FindGameObjectWithTag("fondoM");
+
+        #endregion
+
+        #region Jugador y Entorno
+
         player = GameObject.FindGameObjectWithTag("Player");
         suelos = GameObject.FindGameObjectsWithTag("suelo");
-        GameObject fondoM = GameObject.FindGameObjectWithTag("fondoM");
+        
+        #endregion
 
         d3 = LayerMask.NameToLayer("Dimension3");
         d2 = LayerMask.NameToLayer("Dimension2");
@@ -61,11 +72,14 @@ public class MundoController : MonoBehaviour
         startReset = false;
         resetLevel = false;
 
+        #region Inicialización de objetos ingame
+
         foreach (GameObject botones in botonesPause)
         {
             botones.GetComponent<Button>().enabled = false;
             botones.GetComponent<Image>().enabled = false;
         }
+
         botonPausa.GetComponent<Image>().color = new Color(1, 1, 1, 0);
 
         foreach (GameObject particulas in particulasArray)
@@ -74,6 +88,8 @@ public class MundoController : MonoBehaviour
         }
         
         fondoM.GetComponent<AudioSource>().Play();
+
+        #endregion
 
         //Ejecutamos el pulsarS al empezar para establecer todos los parámetros sin problema (se puede hacer con cualquier dimensión)
         botonCambio.GetComponent<Image>().sprite = pulsarS;
