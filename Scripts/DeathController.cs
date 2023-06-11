@@ -30,7 +30,11 @@ public class DeathController : MonoBehaviour
         startPos = muerteScreen.transform.position;
         Physics2D.IgnoreCollision(gameObject.GetComponent<BoxCollider2D>(), player.GetComponent<BoxCollider2D>());
     }
+    #region Control del jugador y la cruz de muerte, además del sonido
 
+    //Al ser muerto true nos aseguramos de que se reproduzca una vez el siguiente script, el cual hará al jugador invisible
+    //por completo, teleportando la cruz a su posición en el momento de muerte y haciendola visible, además de reproducir el sonido de muerte,
+    //A continuación se ejecuta respawn()
     void Update()
     {
         if (muerto)
@@ -52,11 +56,17 @@ public class DeathController : MonoBehaviour
         }
     }
 
+    #endregion
+
+    //Al entrar la pequeña hitbox en colisión con alguna dimensión activará el bool muerto.
     private void OnCollisionStay2D(Collision2D other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer(mc.layerActual)) muerto = true;
     }
 
+    /** 
+     * Respawn hace que la cortina negra atraviese la pantalla a velocidad gradual, controlando que en cierto punto (cuando cubre cierta parte de la pantalla)
+     * teletransporte al jugador a la posición inicial, quitando la cruz y activando de nuevo al jugador, simulando una transición suave al inicio del nivel.*/
     void respawn()
     {
 

@@ -12,6 +12,7 @@ public class DatosPartida : MonoBehaviour, DataPersistence
     public DatosManager datosManager;
     public IntroScript introScript;
 
+    #region Control de datos de partida
     //Método que se encarga de cargar los datos de la partida.
     public void LoadData(DatosJuego datos)
     {
@@ -46,6 +47,9 @@ public class DatosPartida : MonoBehaviour, DataPersistence
             fileHandler.Save(newDatos);
         }
     }
+    #endregion
+
+    #region Control del texto y el timer
     //Asignación de la variable textoTimer.
     void Start()
     {
@@ -70,5 +74,5 @@ public class DatosPartida : MonoBehaviour, DataPersistence
             textoTimer.GetComponent<TextMeshProUGUI>().SetText(string.Format("{0:00}:{1:00}:{2:00}", horas, minutos, segundos));
         }
     }
-
+    #endregion
 }

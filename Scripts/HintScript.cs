@@ -37,7 +37,7 @@ public class HintScript : MonoBehaviour
     }
     #endregion
 
-    #region Métodos para el llamamiento a la Coroutine y control de la misma.
+    #region Métodos para el llamamiento a la Coroutine flickering y control de la misma.
 
     /*
     showPista() establece isFlickerRunning como true para que el jugador no ejecute de nuevo la coroutine de pista mientras
