@@ -57,14 +57,15 @@ public class DatosPartida : MonoBehaviour, DataPersistence
     }
 
     //En cada frame se actualiza el tiempo actual de la partida en la UI del juego.
-    void Update()   
+    void Update()
     {
-        if (introScript!=null && introScript.isAnimacionOver && SceneManager.GetActiveScene().buildIndex != 1) {
-             timeMillis += Time.deltaTime;
+        if (introScript != null && introScript.isAnimacionOver && SceneManager.GetActiveScene().buildIndex != 1)
+        {
+            timeMillis += Time.deltaTime;
         }
 
         currentLevel = SceneManager.GetActiveScene().buildIndex;
-       
+
         int horas = TimeSpan.FromSeconds(timeMillis).Hours;
         int minutos = TimeSpan.FromSeconds(timeMillis).Minutes;
         int segundos = TimeSpan.FromSeconds(timeMillis).Seconds;

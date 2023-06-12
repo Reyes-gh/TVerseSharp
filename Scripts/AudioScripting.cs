@@ -20,18 +20,24 @@ public class AudioScripting : MonoBehaviour
     void Update()
     {
 
-        if (ic.isAnimacionOver) {
-            if (!audioFondo.isPlaying) {
+        if (ic.isAnimacionOver)
+        {
+            if (!audioFondo.isPlaying)
+            {
                 audioFondo.Play();
             }
-            if (audioFondo.volume < 0.4) {
-                audioFondo.volume+=(float)0.02;
+            if (audioFondo.volume < 0.4)
+            {
+                audioFondo.volume += (float)0.02;
             }
         }
 
-        if (mc.isPaused) {
+        if (mc.isPaused)
+        {
             audioFondo.Pause();
-        } else {
+        }
+        else
+        {
             audioFondo.UnPause();
         }
     }
