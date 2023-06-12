@@ -7,22 +7,24 @@ public class MainMenuController : MonoBehaviour
     GameObject btnLoad;
     GameObject btnQuit;
     GameObject btnNew;
-    float timer = 0.0f;
-    int seconds;
-    AudioSource soundBtns;
-    AudioSource audioBack;
-    int opc;
-    float creceDecrece;
     GameObject fondoM;
-    bool startCurtain = false;
     GameObject videoIntro;
     GameObject textSprite;
+    bool startCurtain = false;
+    float timer = 0.0f;
+    int seconds;
+    int opc;
+    float creceDecrece;
     float speedFade;
+    AudioSource soundBtns;
+    AudioSource audioBack;
     LoadManager loadManager;
     void Start()
     {
+        //instanciamos el LoadManager
         this.loadManager = new LoadManager();
 
+        //Desactivamos la sincronización vertical y forzamos el juego a correr a 60FPS.
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
         //Debe estar siempre en 1 para que las opacidades funcionen bien, para cambiar la velocidad
@@ -76,9 +78,13 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
+    //Función que se encarga únicamente de aumentar y disminuir el titulo de forma suave para crear la animación vista
+    //en el menú.
     void moverTitulo()
     {
 
+        //Es necesario controlar la velocidad a la que aumenta y disminuye el texto, ya que si no lo hacemos
+        //Aumentará y disminuirá cada vez más hasta romperse.
         if (textSprite.transform.localScale.x >= 21)
         {
             creceDecrece -= 0.01f;
@@ -96,10 +102,10 @@ public class MainMenuController : MonoBehaviour
         {
             creceDecrece = -0.3f;
         }
-        //textSprite.transform.rotation = Quaternion.Euler(1, 1, -textSprite.transform.localScale.x/2.5f+Time.deltaTime*creceDecrece*20);
         textSprite.transform.localScale = new Vector3(textSprite.transform.localScale.x + (creceDecrece), textSprite.transform.localScale.y + (creceDecrece), 1);
     }
 
+    //Función para el botón NEW, activa la animación de la cortina y llama al flickering, activa la opción 0 (ver startFade())
     public void NewGame()
     {
         startCurtain = true;
@@ -108,6 +114,7 @@ public class MainMenuController : MonoBehaviour
         soundBtns.Play();
     }
 
+    //Función para el botón LOAD, activa la animación de la cortina y llama al flickering, activa la opción 1 (ver startFade())
     public void LoadGame()
     {
         startCurtain = true;
@@ -115,6 +122,8 @@ public class MainMenuController : MonoBehaviour
         opc = 1;
         soundBtns.Play();
     }
+
+    //Función para el botón QUIT, activa la animación de la cortina y llama al flickering, activa la opción 2 (ver startFade())
 
     public void QuitGame()
     {
@@ -124,12 +133,11 @@ public class MainMenuController : MonoBehaviour
         soundBtns.Play();
     }
 
+    //Simple coroutine para hacer que el botón clickado parpadee.
     IEnumerator flickering(GameObject btnPressed)
     {
-
         while (true)
         {
-
             if (btnPressed.GetComponent<Image>().enabled == true)
             {
                 btnPressed.GetComponent<Image>().enabled = false;
@@ -138,11 +146,12 @@ public class MainMenuController : MonoBehaviour
             {
                 btnPressed.GetComponent<Image>().enabled = true;
             }
-
             yield return new WaitForSeconds(0.1f);
         }
     }
 
+    //Gradualmente se aumenta la opacidad de la cortinilla y se disminuye el volumen para una transición suave
+    //a los niveles.
     void startFade()
     {
 
