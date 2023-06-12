@@ -76,8 +76,8 @@ public class PlayerController : MonoBehaviour
                     rb2D.AddForce(new Vector2(-370000f * Time.deltaTime, 0));
                     sprite.flipX = true;
                 }
-                else if  (Input.GetKey("right"))
-                {  
+                else if (Input.GetKey("right"))
+                {
                     rb2D.AddForce(new Vector2(370000f * Time.deltaTime, 0));
                     sprite.flipX = false;
                 }
@@ -298,30 +298,31 @@ public class PlayerController : MonoBehaviour
         //que el jugador pesa más y se resbala un poco más.
 
         #region Frenado por deceleración
-    /*
-        if (!(Input.GetKey("left") || (Input.GetKey("right"))))
-        {
-            if ((rb2D.velocity.x < -1 || rb2D.velocity.x > 1))
+        /*
+            if (!(Input.GetKey("left") || (Input.GetKey("right"))))
             {
-                rb2D.AddForce(new Vector2(-(rb2D.velocity.x) * 7200 * Time.deltaTime, 0));
+                if ((rb2D.velocity.x < -1 || rb2D.velocity.x > 1))
+                {
+                    rb2D.AddForce(new Vector2(-(rb2D.velocity.x) * 7200 * Time.deltaTime, 0));
+                }
+                else
+                {
+                    rb2D.velocity = new Vector2(0, rb2D.velocity.y);
+                }
             }
-            else
-            {
-                rb2D.velocity = new Vector2(0, rb2D.velocity.y);
-            }
-        }
-    */
+        */
         #endregion
-        
+
         #region  Frenado en seco
 
         //El frenado en seco detecta cuando se deja de pulsar alguna de las dos teclas direccionales, y establece
         //la velocidad a 0, haciendo que el cambiar de dirección sea mas directo y preciso, pero manteniendo la pequeña
         //aceleración vectorial del movimiento.
-        
-        if ((Input.GetKeyUp("left") || (Input.GetKeyUp("right")))) {
-                
-                rb2D.velocity = new Vector2(0, rb2D.velocity.y);
+
+        if ((Input.GetKeyUp("left") || (Input.GetKeyUp("right"))))
+        {
+
+            rb2D.velocity = new Vector2(0, rb2D.velocity.y);
         }
 
         #endregion

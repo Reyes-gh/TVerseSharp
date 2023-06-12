@@ -17,7 +17,8 @@ public class HintScript : MonoBehaviour
     #region Start y Update
     void Start()
     {
-        foreach (TilemapRenderer hint in hints) {
+        foreach (TilemapRenderer hint in hints)
+        {
             hint.enabled = false;
         }
     }
@@ -27,13 +28,15 @@ public class HintScript : MonoBehaviour
     en el método showPista() se establece un nuevo timer de duración para la misma y este 
     se va restando hasta sacar del while al método
     */
-    void Update() {
+    void Update()
+    {
 
-        timer-=Time.deltaTime;   
+        timer -= Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.R)) {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
             if (!isFlickerRunning) showPista();
-        } 
+        }
     }
     #endregion
 
@@ -43,7 +46,8 @@ public class HintScript : MonoBehaviour
     showPista() establece isFlickerRunning como true para que el jugador no ejecute de nuevo la coroutine de pista mientras
     una ya se está ejecutando, también establece el timer a 3 (los segundos que durará la pista) y comienza la coroutine.
     */
-    void showPista() {
+    void showPista()
+    {
         isFlickerRunning = true;
         timer = 3;
         StartCoroutine(flickerHint(hints[whichHint]));
@@ -56,27 +60,33 @@ public class HintScript : MonoBehaviour
     Al finalizar el while se encarga de asegurarse que la flecha es invisible deshabilitando su sprite y se asegura
     de que la pista no supere el máximo de la Lista (por defecto 2, ya que tenemos 3 pistas por nivel; 0, 1 y 2).
     */
-    IEnumerator flickerHint(TilemapRenderer tilemap) {
+    IEnumerator flickerHint(TilemapRenderer tilemap)
+    {
 
-        while (timer>0) {
-  
-            if (tilemap.enabled == false) {
+        while (timer > 0)
+        {
+            if (tilemap.enabled == false)
+            {
                 tilemap.enabled = true;
                 hintSound.Play();
                 yield return new WaitForSeconds(0.5f);
-            } else {
+            }
+            else
+            {
                 tilemap.enabled = false;
                 yield return new WaitForSeconds(0.5f);
             }
-
         }
 
         tilemap.enabled = false;
         Debug.Log(whichHint);
-        if (whichHint==2) {
+        if (whichHint == 2)
+        {
             whichHint = 0;
-        } else {
-            whichHint+=1;
+        }
+        else
+        {
+            whichHint += 1;
         }
         isFlickerRunning = false;
     }

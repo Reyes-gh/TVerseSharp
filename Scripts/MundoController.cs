@@ -61,7 +61,7 @@ public class MundoController : MonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player");
         suelos = GameObject.FindGameObjectsWithTag("suelo");
-        
+
         #endregion
 
         d3 = LayerMask.NameToLayer("Dimension3");
@@ -86,7 +86,7 @@ public class MundoController : MonoBehaviour
         {
             particulas.GetComponent<ParticleSystem>().startColor = new Color(1, 1, 1, 0);
         }
-        
+
         fondoM.GetComponent<AudioSource>().Play();
 
         #endregion
@@ -103,7 +103,7 @@ public class MundoController : MonoBehaviour
     [System.Obsolete]
     void Update()
     {
-        
+
         //Control de la niebla de la capa 0 / amarilla
         //Esto nos sirve para la niebla que se genera al cambiar a la capa
         //con lluvia, ya que si no controlamos esto, al ser gradual irá 
@@ -256,7 +256,7 @@ public class MundoController : MonoBehaviour
         NextLevel();
 
     }
-        #endregion
+    #endregion
     //Control de reseteo de nivel
     public void ResetLevel()
     {
@@ -285,7 +285,8 @@ public class MundoController : MonoBehaviour
 
     //Método específico para el tutorial, es igual a NextLevel pero solo se ejecuta en el tutorial
     //y su botón de "Saltar Tutorial"
-    public void NextTuto() {
+    public void NextTuto()
+    {
         LoadManager loadManager = new LoadManager();
         loadManager.nextLevel();
     }

@@ -31,14 +31,16 @@ public class TutoScript : MonoBehaviour
         particulas.transform.position = player.transform.position;
         fogLluvia.transform.position = player.transform.position;
 
-        if (!introScript.isAnimacionOver && isTutoAsking) {
+        if (!introScript.isAnimacionOver && isTutoAsking)
+        {
             Time.timeScale = 0;
         }
     }
 
     //Si se salta el tutorial se llama al MundoController y se ejecuta
     //NextTuto, un método específico para el tutorial.
-    public void tutoSkip() {
+    public void tutoSkip()
+    {
         isTutoAsking = false;
         Time.timeScale = 1;
         mc.NextTuto();
@@ -46,7 +48,8 @@ public class TutoScript : MonoBehaviour
 
     //Si no se salta el tutorial enviamos los botones fuera del alcance del jugador
     //y hacemos que el tiempo continúe.
-    public void tutoPlay() {
+    public void tutoPlay()
+    {
         isTutoAsking = false;
         Time.timeScale = 1;
         uiTuto.transform.position = new Vector3(99999, 99999, 9999);
