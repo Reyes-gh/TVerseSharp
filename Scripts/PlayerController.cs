@@ -83,7 +83,6 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
-
         if (other.tag == "Meta")
         {
 

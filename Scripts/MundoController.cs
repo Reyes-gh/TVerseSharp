@@ -72,7 +72,7 @@ public class MundoController : MonoBehaviour
         startReset = false;
         resetLevel = false;
 
-        #region Inicialización de objetos ingame
+        #region Inicialización de objetos ingame como partículas o botones, música... etc.
 
         foreach (GameObject botones in botonesPause)
         {
@@ -98,16 +98,17 @@ public class MundoController : MonoBehaviour
         toggleDimension(d0, colorD0);
 
     }
-    #region pollómetro
-
-
-    #endregion
+    #region Eventos en tiempo real
 
     [System.Obsolete]
     void Update()
     {
         
         //Control de la niebla de la capa 0 / amarilla
+        //Esto nos sirve para la niebla que se genera al cambiar a la capa
+        //con lluvia, ya que si no controlamos esto, al ser gradual irá 
+        //o incrementando por encima de lo que debe, o decrementando por debajo
+        //de lo que debería.
         if (fogTimer > 0.3f)
         {
             fogTimer = 0.3f;
@@ -116,6 +117,8 @@ public class MundoController : MonoBehaviour
         {
             fogTimer = 0f;
         }
+
+        //Más control específico sobre las partículas de la capa 0 / amarilla
 
         if (LayerMask.NameToLayer(layerActual) == d0)
         {
@@ -129,6 +132,11 @@ public class MundoController : MonoBehaviour
         }
 
         //Control de la transición al resetear el nivel
+        //Al pulsar el botón de resetear el nivel se hará true el booleano
+        //startReset, ejecutando la animación de reseteo y cargando de nuevo la escena.
+
+        //Al ser el guardado de datos compatible con la carga de escena, se reseteará
+        //sin fallos el timer.
 
         if (startReset)
         {
@@ -148,27 +156,29 @@ public class MundoController : MonoBehaviour
         }
 
         //Control de la opacidad del botón de pause y la funcionalidad
+        //Constantemente se baja la opacidad del botón de pausa, esto en la build no se nota
+        //ya que al pausar detenemos el tiempo y el botón no cambia de opacidad, pero al continuar
+        //jugando se quita automáticamente el botón gracias a esto, dejando la UI limpia para jugar.
         botonPausa.GetComponent<Image>().color = new Color(1, 1, 1, timer);
         timer -= Time.deltaTime;
 
+        //Control del pause con ESC.
+        //Simplemente desactivamos o no la UI dependiendo del pause, así como
+        //detener el tiempo del juego.
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-
             if (isPaused == true)
             {
-
                 foreach (GameObject botones in botonesPause)
                 {
                     botones.GetComponent<Button>().enabled = false;
                     botones.GetComponent<Image>().enabled = false;
                 }
-
                 botonPausa.GetComponent<Image>().sprite = playSprite;
                 botonPausa.GetComponent<Image>().enabled = true;
                 timer = 1;
                 isPaused = false;
                 Time.timeScale = 1;
-
             }
             else
             {
@@ -187,14 +197,26 @@ public class MundoController : MonoBehaviour
 
         }
 
+        //Con este if controlamos que no esté pausado, pudiendo ejecutar las mecánicas
+        //solo en dicho caso.
         if (!isPaused)
         {
-
+            //La variable cooldown se resta constantemente, ya que es necesario.
+            //(Se le asigna valor debajo, esto sirve como timer / cooldown para el cambio de capa)
             cooldown -= Time.deltaTime;
 
             //Control del cambio de capa manejado con cooldown
             if (cooldown < 0)
             {
+
+                /**
+                 * ! Depende de la tecla que pulsemos, se enviarán unos datos u otros al método toggleDimension()
+                 * ! el cual se encarga de las propiedades de las capas (si se activan sus colisiones, si se le cambia el color)
+                 * 
+                 * Al pulsar cualquier tecla, se cambiará el sprite de los botones WASD situado abajo a la izquierda, también
+                 * se cambiará la variable layerActual utilizada por otros scripts y este mismo, también se asignará a la capa
+                 * correspondiente el color que necesite, y se enviarán datos al método como la capa actual y el color
+                 * (ver método)*/
                 if (Input.GetKeyDown(KeyCode.S))
                 {
                     botonCambio.GetComponent<Image>().sprite = pulsarS;
@@ -229,10 +251,12 @@ public class MundoController : MonoBehaviour
             }
 
         }
+        //NextLevel se ejecuta constantemente, así cuando se pulse F se comprueba rápidamente que el
+        //jugador esté en la meta o no, y pase al siguiente nivel o se quede.
         NextLevel();
 
     }
-
+        #endregion
     //Control de reseteo de nivel
     public void ResetLevel()
     {
@@ -248,6 +272,8 @@ public class MundoController : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    //Controlado por el script PlayerController, al pulsar F se comprobará si estamos en la meta o no
+    //dicho booleano se pasará aquí y se utilizará para pasar de nivel o no.
     void NextLevel()
     {
         if (player.GetComponent<PlayerController>().isOnMeta == true)
@@ -257,18 +283,25 @@ public class MundoController : MonoBehaviour
         }
     }
 
+    //Método específico para el tutorial, es igual a NextLevel pero solo se ejecuta en el tutorial
+    //y su botón de "Saltar Tutorial"
+    public void NextTuto() {
+        LoadManager loadManager = new LoadManager();
+        loadManager.nextLevel();
+    }
 
-    //Función toggleDimensión la cual cambia las propiedades de cada dimensión en base a lo que se pulse pasado por parámetro.
+
+    //Función toggleDimensión la cual cambia las propiedades de cada dimensión en base a lo que se pulse pasado por parámetro
     [System.Obsolete]
     void toggleDimension(int dis, Color newColor)
     {
-
+        //Repasa todos los objetos de tipo suelo, y en caso de coincidir con la capa actual se le 
+        //aplican las propiedades necesarias, como activar los colliders y cambiar la capa activa para
+        //que se muestre por encima de los demás, además de asignarle el color requerido.
         foreach (GameObject suelo in suelos)
         {
-
             if (suelo.layer == dis)
             {
-
                 suelo.GetComponent<TilemapCollider2D>().enabled = true;
                 TilemapRenderer rend = suelo.GetComponent<TilemapRenderer>();
                 rend.sortingLayerName = "Default";
@@ -278,6 +311,9 @@ public class MundoController : MonoBehaviour
             }
             else
             {
+                //En caso de no ser de la capa actual, el collider del suelo se desactivará y
+                //se activará el método shade() con dicho elemento de tipo suelo.
+                //(ver shade())
                 suelo.GetComponent<TilemapCollider2D>().enabled = false;
                 shade(suelo);
             }
@@ -285,12 +321,13 @@ public class MundoController : MonoBehaviour
     }
 
     [System.Obsolete]
+
+    //Shade se encarga de mostrar las partículas de la capa actual y resetear el cooldown del cambio
+    //además de oscurecer las demás capas no activas.
     void shade(GameObject suelo)
     {
-
         foreach (GameObject particulas in particulasArray)
         {
-
             if (particulas.layer == LayerMask.NameToLayer(layerActual))
             {
                 particulas.GetComponent<ParticleSystem>().startColor = new Color(1, 1, 1, 1);
@@ -299,7 +336,6 @@ public class MundoController : MonoBehaviour
             {
                 particulas.GetComponent<ParticleSystem>().startColor = new Color(1, 1, 1, 0);
             }
-
         }
 
         //Cooldown para cambio de capa
@@ -307,10 +343,12 @@ public class MundoController : MonoBehaviour
 
         cooldown = 0.1f;
 
+        //Creamos la nueva variable TilemapRenderer y la enviamos a una capa inferior.
         TilemapRenderer rend2 = suelo.GetComponent<TilemapRenderer>();
         rend2.sortingLayerName = "background";
         rend2.sortingOrder = 0;
 
+        //Dependiendo de que capa no esté activa se le aplicará su color correspondiente.
         if (suelo.layer == d1)
         {
             suelo.GetComponent<Tilemap>().color = new Color(47f / 255, 181f / 255, 52f / 255, 0.25f);

@@ -7,9 +7,6 @@ public class MainMenuController : MonoBehaviour
     GameObject btnLoad;
     GameObject btnQuit;
     GameObject btnNew;
-    bool flickerNew = false;
-    bool flickerQuit = false;
-    bool flickerLoad = false;
     float timer = 0.0f;
     int seconds;
     AudioSource soundBtns;
@@ -19,7 +16,6 @@ public class MainMenuController : MonoBehaviour
     GameObject fondoM;
     bool startCurtain = false;
     GameObject videoIntro;
-    bool isVideoOver;
     GameObject textSprite;
     float speedFade;
     LoadManager loadManager;
@@ -33,7 +29,6 @@ public class MainMenuController : MonoBehaviour
         //debemos cambiar valores como el dividendo del Time.DeltaTime/X
         timer = 1;
         startCurtain = false;
-        isVideoOver = false;
         creceDecrece = 0.3f;
         speedFade = 1.5f;
 
