@@ -26,7 +26,7 @@ public class DatosManager : MonoBehaviour
 
     private void Start()
     {
-        this.fileHandler = new FileHandler(Application.persistentDataPath, fileName);
+        this.fileHandler = new FileHandler(Application.persistentDataPath, fileName, true);
         this.dataPersistences = findAllDatas();
         LoadGame();
     }
@@ -86,11 +86,6 @@ public class DatosManager : MonoBehaviour
     private void OnApplicationQuit()
     {
         if (SceneManager.GetActiveScene().buildIndex != 0) SaveGame();
-    }
-
-    private void OnDestroy()
-    {
-        Debug.Log("no fuimo");
     }
 
     private List<DataPersistence> findAllDatas()

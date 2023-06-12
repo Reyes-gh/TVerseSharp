@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class LoadManager : MonoBehaviour
 {
     private DatosJuego datosJuego = new DatosJuego();
-    private FileHandler fileHandler = new FileHandler(Application.persistentDataPath, "data.tverse");
+    private FileHandler fileHandler = new FileHandler(Application.persistentDataPath, "data.tverse", true);
     private DatosManager datosManager;
 
 

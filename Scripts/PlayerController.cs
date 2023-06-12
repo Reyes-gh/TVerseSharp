@@ -87,6 +87,12 @@ public class PlayerController : MonoBehaviour
                     jump();
                 }
 
+                if (Input.GetKey(KeyCode.Q)) {
+                    animator.SetBool("dancing", true);
+                } else {
+                    animator.SetBool("dancing", false);
+                }
+
                 //Cada frame se llama a estos métodos, explicados en su debido lugar en el código.
                 raycasting();
                 ComportamientoJugadorEntorno();

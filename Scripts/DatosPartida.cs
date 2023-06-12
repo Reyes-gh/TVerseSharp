@@ -31,7 +31,7 @@ public class DatosPartida : MonoBehaviour, DataPersistence
     //Esto sirve para que el tiempo guardado se cargue al inicio de cada nivel.
     void Awake()
     {
-        fileHandler = new FileHandler(Application.persistentDataPath, "data.tverse");
+        fileHandler = new FileHandler(Application.persistentDataPath, "data.tverse", true);
         this.timeMillis = fileHandler.Load().timeMillis;
     }
 

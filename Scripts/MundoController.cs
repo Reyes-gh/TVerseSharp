@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
@@ -14,6 +15,9 @@ public class MundoController : MonoBehaviour
     GameObject[] botonesPause;
     GameObject[] particulasArray;
     GameObject[] suelos;
+    public AudioSource[] audios;
+    public AudioSource audioFondo;
+    AudioSource secondaryAudio;
     public DatosManager datosManager;
     [Header("Sprites")]
     public Sprite pulsarA;
@@ -27,6 +31,7 @@ public class MundoController : MonoBehaviour
     public bool isPaused;
     bool startReset;
     bool resetLevel;
+    bool changingSong;
     float cooldown;
     float timer;
     int d0;
@@ -87,7 +92,19 @@ public class MundoController : MonoBehaviour
             particulas.GetComponent<ParticleSystem>().startColor = new Color(1, 1, 1, 0);
         }
 
-        fondoM.GetComponent<AudioSource>().Play();
+        foreach (AudioSource audio in audios) {
+            audio.Play();
+            audio.volume = 0;
+        }
+
+        if (SceneManager.GetActiveScene().buildIndex != 1) {
+             audioFondo = audios[0];
+        } else {
+            audioFondo = fondoM.GetComponent<AudioSource>();
+        }
+       
+        audioFondo.Play();
+        secondaryAudio = audios[1];
 
         #endregion
 
@@ -103,6 +120,11 @@ public class MundoController : MonoBehaviour
     [System.Obsolete]
     void Update()
     {
+        //Nos aseguramos de que el volumen de la música no exceda el límite requerido
+        //(Esto ayudará para la transición musical)
+        if (audioFondo.volume > 0.4) {
+            audioFondo.volume = 0.4f;
+        }
 
         //Control de la niebla de la capa 0 / amarilla
         //Esto nos sirve para la niebla que se genera al cambiar a la capa
@@ -221,6 +243,7 @@ public class MundoController : MonoBehaviour
                 {
                     botonCambio.GetComponent<Image>().sprite = pulsarS;
                     layerActual = "Dimension0";
+                    secondaryAudio = audios[0];
                     Color colorD0 = new Color(181f / 255, 163f / 255, 47f / 255, 1f);
                     toggleDimension(d0, colorD0);
                 }
@@ -229,6 +252,7 @@ public class MundoController : MonoBehaviour
                 {
                     botonCambio.GetComponent<Image>().sprite = pulsarA;
                     layerActual = "Dimension1";
+                    secondaryAudio = audios[1];
                     Color colorD1 = new Color(47f / 255, 181f / 255, 52f / 255, 1f);
                     toggleDimension(d1, colorD1);
                 }
@@ -237,6 +261,7 @@ public class MundoController : MonoBehaviour
                 {
                     botonCambio.GetComponent<Image>().sprite = pulsarW;
                     layerActual = "Dimension2";
+                    secondaryAudio = audios[2];
                     Color colorD2 = new Color(47f / 255, 54f / 255, 181f / 255, 1f);
                     toggleDimension(d2, colorD2);
                 }
@@ -245,6 +270,7 @@ public class MundoController : MonoBehaviour
                 {
                     botonCambio.GetComponent<Image>().sprite = pulsarD;
                     layerActual = "Dimension3";
+                    secondaryAudio = audios[3];
                     Color colorD3 = new Color(181f / 255, 47f / 255, 67f / 255, 255f);
                     toggleDimension(d3, colorD3);
                 }
@@ -366,6 +392,35 @@ public class MundoController : MonoBehaviour
         {
             suelo.GetComponent<Tilemap>().color = new Color(181f / 255, 47f / 255, 67f / 255, 0.25f);
         }
+
+        if (SceneManager.GetActiveScene().name != "Level0")
+        {
+            if (!changingSong && audioFondo.volume != secondaryAudio.volume) StartCoroutine(changeSong(audioFondo, secondaryAudio));
+        }
+    }
+
+    IEnumerator changeSong(AudioSource viejoAudio, AudioSource nuevoAudio)
+    {
+        changingSong = true;
+        while (nuevoAudio.volume < 0.4f)
+        {
+            nuevoAudio.volume += 0.1f;
+            viejoAudio.volume -= nuevoAudio.volume;   
+            yield return new WaitForSeconds(0.1f);
+        }
+ 
+        Debug.LogError("hola");
+        secondaryAudio.volume = 0;
+
+        audioFondo = nuevoAudio;
+        audioFondo.volume = 0.4f;
+
+        foreach (AudioSource audio in audios){
+            if (audio != audioFondo) audio.volume =0;
+        }
+
+        changingSong = false;
+        
     }
 
 }
