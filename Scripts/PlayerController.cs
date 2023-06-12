@@ -301,7 +301,6 @@ public class PlayerController : MonoBehaviour
     /*
         if (!(Input.GetKey("left") || (Input.GetKey("right"))))
         {
-
             if ((rb2D.velocity.x < -1 || rb2D.velocity.x > 1))
             {
                 rb2D.AddForce(new Vector2(-(rb2D.velocity.x) * 7200 * Time.deltaTime, 0));
@@ -310,7 +309,6 @@ public class PlayerController : MonoBehaviour
             {
                 rb2D.velocity = new Vector2(0, rb2D.velocity.y);
             }
-
         }
     */
         #endregion
