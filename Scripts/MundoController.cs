@@ -34,6 +34,7 @@ public class MundoController : MonoBehaviour
     bool changingSong;
     float cooldown;
     float timer;
+    float maxVolumeMusic;
     int d0;
     int d1;
     int d2;
@@ -48,6 +49,7 @@ public class MundoController : MonoBehaviour
         cooldown = 0;
         isPaused = false;
         fogTimer = 1;
+        maxVolumeMusic = 0.2f;
         #endregion
 
         #region Imágenes UI / Fondo / Animaciones
@@ -93,8 +95,8 @@ public class MundoController : MonoBehaviour
         }
 
         foreach (AudioSource audio in audios) {
-            audio.Play();
             audio.volume = 0;
+            audio.Play();
         }
 
         if (SceneManager.GetActiveScene().buildIndex != 1) {
@@ -122,8 +124,8 @@ public class MundoController : MonoBehaviour
     {
         //Nos aseguramos de que el volumen de la música no exceda el límite requerido
         //(Esto ayudará para la transición musical)
-        if (audioFondo.volume > 0.4) {
-            audioFondo.volume = 0.4f;
+        if (audioFondo.volume > maxVolumeMusic) {
+            audioFondo.volume = maxVolumeMusic;
         }
 
         //Control de la niebla de la capa 0 / amarilla
@@ -366,9 +368,9 @@ public class MundoController : MonoBehaviour
         }
 
         //Cooldown para cambio de capa
-        //Habilitado pero muy bajo (0.1)
+        //Habilitado a velocidad media (0.2)
 
-        cooldown = 0.1f;
+        cooldown = 0.2f;
 
         //Creamos la nueva variable TilemapRenderer y la enviamos a una capa inferior.
         TilemapRenderer rend2 = suelo.GetComponent<TilemapRenderer>();
@@ -402,18 +404,18 @@ public class MundoController : MonoBehaviour
     IEnumerator changeSong(AudioSource viejoAudio, AudioSource nuevoAudio)
     {
         changingSong = true;
-        while (nuevoAudio.volume < 0.4f)
+        while (nuevoAudio.volume < maxVolumeMusic)
         {
-            nuevoAudio.volume += 0.1f;
+            nuevoAudio.volume += 0.04f;
             viejoAudio.volume -= nuevoAudio.volume;   
             yield return new WaitForSeconds(0.1f);
         }
  
-        Debug.LogError("hola");
+        Debug.LogError("Cambiada la música");
         secondaryAudio.volume = 0;
 
         audioFondo = nuevoAudio;
-        audioFondo.volume = 0.4f;
+        audioFondo.volume = maxVolumeMusic;
 
         foreach (AudioSource audio in audios){
             if (audio != audioFondo) audio.volume =0;
