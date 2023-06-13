@@ -93,21 +93,22 @@ public class MundoController : MonoBehaviour
         {
             particulas.GetComponent<ParticleSystem>().startColor = new Color(1, 1, 1, 0);
         }
+        
+        #endregion
 
-        foreach (AudioSource audio in audios) {
-            audio.volume = 0;
-            audio.Play();
-        }
+        #region Control inicial del audio
 
         if (SceneManager.GetActiveScene().buildIndex != 1) {
              audioFondo = audios[0];
         } else {
             audioFondo = fondoM.GetComponent<AudioSource>();
         }
-       
-        audioFondo.Play();
         secondaryAudio = audios[1];
 
+        foreach (AudioSource audio in audios) {
+            audio.volume = 0;
+            audio.Play();
+        }
         #endregion
 
         //Ejecutamos el pulsarS al empezar para establecer todos los parámetros sin problema (se puede hacer con cualquier dimensión)
@@ -232,7 +233,6 @@ public class MundoController : MonoBehaviour
             //Control del cambio de capa manejado con cooldown
             if (cooldown < 0)
             {
-
                 /**
                  * ! Depende de la tecla que pulsemos, se enviarán unos datos u otros al método toggleDimension()
                  * ! el cual se encarga de las propiedades de las capas (si se activan sus colisiones, si se le cambia el color)
@@ -406,7 +406,7 @@ public class MundoController : MonoBehaviour
         changingSong = true;
         while (nuevoAudio.volume < maxVolumeMusic)
         {
-            nuevoAudio.volume += 0.04f;
+            nuevoAudio.volume += 0.02f;
             viejoAudio.volume -= nuevoAudio.volume;   
             yield return new WaitForSeconds(0.1f);
         }

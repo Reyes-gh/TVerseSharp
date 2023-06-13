@@ -6,7 +6,6 @@ public class IntroScript : MonoBehaviour
     RawImage riNegro;
     RawImage riStripe;
     RawImage riText;
-    AudioSource fondoM;
     public GameObject[] audios;
     float velocidadDespliegue;
     bool isStripeOver;
@@ -19,9 +18,7 @@ public class IntroScript : MonoBehaviour
         riNegro = GameObject.FindGameObjectWithTag("blackIntro").GetComponent<RawImage>();
         riStripe = GameObject.FindGameObjectWithTag("whiteStripe").GetComponent<RawImage>();
         riText = GameObject.FindGameObjectWithTag("textLevel").GetComponent<RawImage>();
-        fondoM = mc.audioFondo;
-        fondoM.volume = 0;
-        fondoM.Stop();
+
         velocidadDespliegue = 0;
         isStripeOver = false;
         isAnimacionOver = false;
@@ -30,7 +27,6 @@ public class IntroScript : MonoBehaviour
     // Primero se controla que la banda blanca con el texto haya pasado antes de quitar la cortinilla negra.
     void Update()
     {
-        fondoM = mc.audioFondo;
         if (!isStripeOver)
         {
             introStripe();
