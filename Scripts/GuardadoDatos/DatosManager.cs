@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class DatosManager : MonoBehaviour
 {
 
-    [Header("File Storage Config")]
+    [Header("Configuración Storage / Almacenamiento")]
     [SerializeField] private string fileName;
     private DatosJuego datosJuego;
     private List<DataPersistence> dataPersistences;

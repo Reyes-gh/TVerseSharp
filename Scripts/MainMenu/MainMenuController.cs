@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.IO;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -43,6 +44,12 @@ public class MainMenuController : MonoBehaviour
         btnNew = GameObject.FindGameObjectWithTag("btnNew");
         btnLoad = GameObject.FindGameObjectWithTag("btnLoad");
         btnQuit = GameObject.FindGameObjectWithTag("btnPause");
+
+        if (File.Exists(Path.Combine(Application.persistentDataPath, "data.tverse"))) {
+            btnLoad.SetActive(true);
+        } else {
+            btnLoad.SetActive(false);
+        }
 
     }
 
