@@ -7,7 +7,7 @@ public class FileHandler
 
     private string dataDirPath = "";
     private string dataFileName = "";
-    private bool encriptar = false;
+    private bool encriptar = true;
     private readonly string encryptKeyWord = "alejandro";
     public FileHandler(string dataDirPath, string dataFileName, bool encriptar)
     {
