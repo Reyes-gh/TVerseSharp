@@ -17,6 +17,7 @@ public class MundoController : MonoBehaviour
     GameObject[] suelos;
     public AudioSource[] audios;
     public AudioSource audioFondo;
+    public AudioSource monoAudio;
     AudioSource secondaryAudio;
     public DatosManager datosManager;
     [Header("Sprites")]
@@ -61,6 +62,7 @@ public class MundoController : MonoBehaviour
         botonPausa = GameObject.FindGameObjectWithTag("PausaJuego");
         botonesPause = GameObject.FindGameObjectsWithTag("botonesPause");
         GameObject fondoM = GameObject.FindGameObjectWithTag("fondoM");
+        monoAudio = fondoM.GetComponent<AudioSource>();
 
         #endregion
 
@@ -113,9 +115,9 @@ public class MundoController : MonoBehaviour
 
         //Ejecutamos el pulsarS al empezar para establecer todos los parámetros sin problema (se puede hacer con cualquier dimensión)
         botonCambio.GetComponent<Image>().sprite = pulsarS;
-        layerActual = "Dimension0";
-        Color colorD0 = new Color(181f / 255, 163f / 255, 47f / 255, 1f);
-        toggleDimension(d0, colorD0);
+        layerActual = "Dimension2";
+        Color colorD2 = new Color(47f / 255, 54f / 255, 181f / 255, 1f);
+        toggleDimension(d2, colorD2);
 
     }
     #region Eventos en tiempo real
