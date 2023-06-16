@@ -35,7 +35,7 @@ public class AudioScripting : MonoBehaviour
         {
             if (!audioFondo.isPlaying)
             {
-                monoAudio.Play();
+                if (isTuto)monoAudio.Play();
                 foreach (AudioSource audio in audios) audio.Play();
             }
             if (audioFondo.volume < 0.2f)
