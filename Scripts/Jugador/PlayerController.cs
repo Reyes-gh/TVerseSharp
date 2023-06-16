@@ -208,26 +208,23 @@ public class PlayerController : MonoBehaviour
         //Primero le daremos prioridad al salto en pared, si el jugador pulsa cualquier dirección estando en la pared
         //y la variable WallJump es true, depende de en qué dirección estemos presionando ejecutará una fuerza vectorial
         //u otra, además de reproducir el sonido correspondiente al salto en pared.
-        if (canWallJump && ((Input.GetKey("left")) || Input.GetKey("right")))
-        {
-            canWallJump = false;
 
-            if (Input.GetKey("left") && hitLeft.collider != null)
-            {
-                rb2D.AddForce(new Vector2(87000f, 110000f));
-                audioWalljump.Play();
-            }
-            else
-            {
-                if (Input.GetKey("right") && hitRight.collider != null)
-                {
-                    rb2D.AddForce(new Vector2(-87000f, 110000f));
-                    audioWalljump.Play();
-                }
-            }
-            //Nos aseguramos de hacer return para que no se ejecute código sin querer.
-            return;
+        if (canWallJump && Input.GetKey("left") && hitLeft.collider != null)
+        {
+            rb2D.AddForce(new Vector2(87000f, 110000f));
+            audioWalljump.Play();
+        // Nos aseguramos de hacer return para que no se ejecute código sin querer.
+        return;
         }
+
+        if (canWallJump && Input.GetKey("right") && hitRight.collider != null)
+        {
+                rb2D.AddForce(new Vector2(-87000f, 110000f));
+                audioWalljump.Play();
+        // Nos aseguramos de hacer return para que no se ejecute código sin querer.
+        return;
+        }
+        
         //Como los cálculos se hacen en el propio raycast(), aqui solo basta con hacer el bool canJump falso
         //y ejecutar la fuerza vectorial, además de reproducir el sonido correspondiente.
         if (canJump)
