@@ -408,12 +408,12 @@ public class MundoController : MonoBehaviour
         changingSong = true;
         while (nuevoAudio.volume < maxVolumeMusic)
         {
-            nuevoAudio.volume += 0.02f;
+            nuevoAudio.volume += 0.04f;
             viejoAudio.volume -= nuevoAudio.volume;   
             yield return new WaitForSeconds(0.1f);
         }
  
-        Debug.LogError("Cambiada la música");
+        //Debug.Log("Cambiada la música");
         secondaryAudio.volume = 0;
 
         audioFondo = nuevoAudio;
