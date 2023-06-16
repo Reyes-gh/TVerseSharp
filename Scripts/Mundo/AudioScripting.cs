@@ -38,9 +38,9 @@ public class AudioScripting : MonoBehaviour
                 if (isTuto)monoAudio.Play();
                 foreach (AudioSource audio in audios) audio.Play();
             }
-            if (audioFondo.volume < 0.2f)
+            if (audioFondo.volume < 0.6f)
             {
-                audioFondo.volume += (float)0.02;
+                audioFondo.volume += (float)0.2;
                 if (isTuto) monoAudio.volume += (float)0.02;
             }
         }

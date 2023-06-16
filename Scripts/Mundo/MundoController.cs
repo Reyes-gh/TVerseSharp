@@ -50,7 +50,7 @@ public class MundoController : MonoBehaviour
         cooldown = 0;
         isPaused = false;
         fogTimer = 1;
-        maxVolumeMusic = 0.2f;
+        maxVolumeMusic = 0.6f;
         #endregion
 
         #region Imágenes UI / Fondo / Animaciones
@@ -101,11 +101,11 @@ public class MundoController : MonoBehaviour
         #region Control inicial del audio
 
         if (SceneManager.GetActiveScene().buildIndex != 1) {
-             audioFondo = audios[0];
+             audioFondo = audios[2];
         } else {
             audioFondo = fondoM.GetComponent<AudioSource>();
         }
-        secondaryAudio = audios[1];
+        secondaryAudio = audios[0];
 
         foreach (AudioSource audio in audios) {
             audio.volume = 0;
@@ -408,9 +408,9 @@ public class MundoController : MonoBehaviour
         changingSong = true;
         while (nuevoAudio.volume < maxVolumeMusic)
         {
-            nuevoAudio.volume += 0.04f;
-            viejoAudio.volume -= nuevoAudio.volume;   
-            yield return new WaitForSeconds(0.1f);
+            viejoAudio.volume -= nuevoAudio.volume;  
+            nuevoAudio.volume += 0.1f;
+            yield return new WaitForSeconds(0.05f);
         }
  
         //Debug.Log("Cambiada la música");
