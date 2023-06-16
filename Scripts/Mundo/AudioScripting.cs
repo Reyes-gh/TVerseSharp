@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -28,11 +29,11 @@ public class AudioScripting : MonoBehaviour
     {
        
         audioFondo = mc.audioFondo;
-        
         audios = mc.audios;
 
         if (ic.isAnimacionOver)
         {
+
             if (!audioFondo.isPlaying)
             {
                 if (isTuto)monoAudio.Play();
@@ -40,9 +41,14 @@ public class AudioScripting : MonoBehaviour
             }
             if (audioFondo.volume < 0.6f)
             {
-                audioFondo.volume += (float)0.2;
-                if (isTuto) monoAudio.volume += (float)0.02;
+                StartCoroutine(volumeUp());
+            } else {
+                StopCoroutine(volumeUp());
             }
+
+        } else {
+            audioFondo.volume = 0f;
+            if (isTuto)monoAudio.volume = 0f;
         }
 
         if (mc.isPaused)
@@ -50,7 +56,6 @@ public class AudioScripting : MonoBehaviour
             foreach (AudioSource audio in audios) audio.Pause();
             audioFondo.Pause();
             if (isTuto) monoAudio.Pause();
-            
             
         }
         else
@@ -60,6 +65,12 @@ public class AudioScripting : MonoBehaviour
             if (isTuto) monoAudio.UnPause();
             
         }
+    }
+
+    IEnumerator volumeUp() {
+        audioFondo.volume +=0.01f;
+        if (isTuto) monoAudio.volume +=0.01f;
+        yield return new WaitForSeconds(0.2f);
     }
 
     #endregion
