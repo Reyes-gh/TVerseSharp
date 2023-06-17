@@ -114,7 +114,7 @@ public class MundoController : MonoBehaviour
         #endregion
 
         //Ejecutamos el pulsarS al empezar para establecer todos los parámetros sin problema (se puede hacer con cualquier dimensión)
-        botonCambio.GetComponent<Image>().sprite = pulsarS;
+        botonCambio.GetComponent<Image>().sprite = pulsarW;
         layerActual = "Dimension2";
         Color colorD2 = new Color(47f / 255, 54f / 255, 181f / 255, 1f);
         toggleDimension(d2, colorD2);
