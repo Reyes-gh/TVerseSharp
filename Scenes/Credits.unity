@@ -615,7 +615,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 31, y: -366}
+  m_AnchoredPosition: {x: 31, y: -372}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!50 &1617568074
@@ -687,7 +687,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 4017}
+  m_AnchoredPosition: {x: 0, y: 4135}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1994075131
@@ -752,9 +752,8 @@ MonoBehaviour:
     tele     yo\n\n\n\nSTAFF\n\nHistoria / Planificaci\xF3n / Dise\xF1o de juego\nyo\n\n\nEscrito
     por\nyo\n\nB\xFAsqueda de informaci\xF3n\nyo\n\nArreglo de errores\nyo\n\nDirector
     t\xE9cnico\nyo\n\nProducci\xF3n visual\nyo\n\n\nBanda Sonora\nElena Jim\xE9nez
-    Ledesma\n\n\nAgradecimientos especiales\nErnesto\nAntonio\nAlva\nDani\nManu\nLuc\xEDa\n\n\n\n\n\n\n\nEsto
-    es definitivamente cine\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nGRACIAS
-    POR JUGAR!!!\n\n"
+    Ledesma\n\n\nAgradecimientos especiales\nErnesto\nAntonio\nAlva\nDani\nManu\nLuc\xEDa\n\n\n\n\n\n\n\n\n\n\n\nEsto
+    es definitivamente cine\n\n\n\n\n\n\n\n\n\nGRACIAS POR JUGAR!!!\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
