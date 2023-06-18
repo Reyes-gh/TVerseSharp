@@ -23,6 +23,9 @@ public class LoadManager : MonoBehaviour
 
     public void nextLevel()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 4) {
+            SceneManager.LoadScene(5);
+        }
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
