@@ -67,7 +67,6 @@ public class DeathController : MonoBehaviour
     //Al entrar en los abismos de muerte (presentes, por ejemplo, en el nivel 2) también
     //moriremos.
     private void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log("me muero");
         if (other.tag == "pitMuerte") muerto = true;    
     }
 

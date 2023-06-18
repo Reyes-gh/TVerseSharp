@@ -79,7 +79,6 @@ public class HintScript : MonoBehaviour
         }
 
         tilemap.enabled = false;
-        Debug.Log(whichHint);
         if (whichHint == 2)
         {
             whichHint = 0;
